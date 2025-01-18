@@ -25,13 +25,20 @@ def char_counter(text):
             char_dict[char] = 1
     return char_dict
 
+def sort_on(d):
+    return d["num"]
+
 def report(num_words, num_chars):
-    sorted_num_chars_list = sorted(num_chars.items(), key=lambda x:x[1], reverse=reversed)
-    sorted_num_chars = dict(sorted_num_chars_list)
+    sorted_list = []
+    for ch in num_chars:
+        sorted_list.append({"char": ch, "num": num_chars[ch]})
+    sorted_list.sort(reverse=True, key=sort_on)
     book_report = f"--- Begin report of books/frankenstein.txt ---\n{num_words} words found in document\n\n"
-    for key, value in sorted_num_chars.items():
-        if key.isalpha():
-            book_report += (f"The key is: {key}, and the value is: {value}\n")
+    for item in sorted_list:
+        if not item["char"].isalpha():
+            continue
+        if item["char"].isalpha():
+            book_report += (f"The key is: '{item["char"]}', and the value is: {item["num"]}\n")
     book_report += "--- End report ---"
     return book_report
 
